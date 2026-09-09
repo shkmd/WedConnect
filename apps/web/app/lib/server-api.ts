@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers';
 
-const apiBase = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000/api/v1';
+const apiBase = process.env.API_SERVER_URL ?? 'http://localhost:4000/api/v1';
 export type ApiResult<T> = { ok: true; data: T } | { ok: false; status: number; message: string };
 
 export async function apiGet<T>(path: string): Promise<ApiResult<T>> {

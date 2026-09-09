@@ -1,5 +1,9 @@
 import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
+  async rewrites() {
+    const apiBase = (process.env.API_SERVER_URL ?? 'http://localhost:4000/api/v1').replace(/\/$/, '');
+    return [{ source: '/api/v1/:path*', destination: `${apiBase}/:path*` }];
+  },
   distDir: process.env.NODE_ENV === 'development' ? '.next-dev' : '.next',
   poweredByHeader: false, reactStrictMode: true,
   headers: async () => [{ source: '/(.*)', headers: [

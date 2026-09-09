@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 type Result={id:string;name:string;slug:string;description:string|null;rating:number;reviewCount:number;verified:boolean;startingPrice:number|null;languages:string[];score:number;label?:string};
 type SearchResponse={sponsored:Result[];organic:Result[];meta:{total:number}};
-const api=process.env.NEXT_PUBLIC_API_URL??'http://localhost:4000/api/v1';
+const api=process.env.API_SERVER_URL??'http://localhost:4000/api/v1';
 const categoryImages:Record<string,string>={photography:'/images/home/photography.webp',venues:'/images/home/venue.webp',venue:'/images/home/venue.webp',makeup:'/images/home/makeup.webp',catering:'/images/home/catering.webp',decor:'/images/home/decor.webp',music:'/images/home/music.webp'};
 const suggestions=[['Wedding venues','venues','/images/home/venue.webp'],['Bridal makeup','makeup','/images/home/makeup.webp'],['Catering','catering','/images/home/catering.webp']] as const;
 const clean=(value:string)=>value.replaceAll('-',' ').replace(/\b\w/g,(letter)=>letter.toUpperCase());
