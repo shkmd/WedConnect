@@ -1,0 +1,1 @@
+export function redirectSystemPath({path}:{path:string;initial:boolean}){try{const url=new URL(path,'https://wedconnect.in');if(url.pathname.startsWith('/vendors/')||url.pathname.startsWith('/enquiries/'))return url.pathname;return'/'}catch{return'/'}}

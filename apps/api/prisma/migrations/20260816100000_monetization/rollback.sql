@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS "promotion_campaigns","payment_webhook_events","invoices","billing_orders","credit_packs","vendor_subscriptions","subscription_plans" CASCADE;DROP TYPE IF EXISTS "CampaignStatus","BillingOrderStatus","BillingOrderType","SubscriptionStatus","BillingInterval";

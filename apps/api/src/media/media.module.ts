@@ -1,0 +1,2 @@
+import {Module} from '@nestjs/common'; import {AuthModule} from '../identity/auth.module'; import {MediaModerationController,PublicPortfolioController,VendorMediaController,VendorPortfolioController} from './media.controller'; import {MediaService} from './media.service';
+@Module({imports:[AuthModule],controllers:[VendorMediaController,VendorPortfolioController,MediaModerationController,PublicPortfolioController],providers:[MediaService]}) export class MediaModule{}

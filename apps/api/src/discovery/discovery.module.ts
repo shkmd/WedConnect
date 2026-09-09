@@ -1,0 +1,1 @@
+import{Module}from'@nestjs/common';import{AuthModule}from'../identity/auth.module';import{DiscoveryController,SponsoredController}from'./discovery.controller';import{DiscoveryService}from'./discovery.service';@Module({imports:[AuthModule],controllers:[DiscoveryController,SponsoredController],providers:[DiscoveryService]})export class DiscoveryModule{}

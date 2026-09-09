@@ -1,0 +1,11 @@
+import { createServer } from 'node:http';
+import { loadConfig } from './config.js';
+import { startMediaProcessor } from './media-processor.js';
+import { startRetention } from './retention.js';
+const config = loadConfig();
+const stopProcessor = startMediaProcessor(config);
+const stopRetention = startRetention(config.databaseUrl);
+const server = createServer((request, response) => { if (request.url === '/health/live') { response.writeHead(200, {'content-type':'application/json'}); response.end(JSON.stringify({status:'ok',service:'worker'})); return; } response.writeHead(404).end(); });
+server.listen(config.healthPort, '0.0.0.0');
+const shutdown = (): void => { server.close(() => void Promise.all([stopProcessor(),stopRetention()]).finally(() => process.exit(0))); };
+process.on('SIGINT', shutdown); process.on('SIGTERM', shutdown);

@@ -1,0 +1,17 @@
+.hero-photo{width:min(520px,94%);height:500px;border-radius:46% 46% 24px 24px;background-image:linear-gradient(180deg,transparent 58%,#2c121b55),url('/images/home/hero-couple.webp');background-position:center;background-size:cover;box-shadow:0 34px 80px #5f29332c}
+.hero-photo:after{inset:18px;border-color:#ffffff55;border-radius:44% 44% 18px 18px}
+.hero-photo .couple-mark,.hero-photo .photo-flower{display:none}
+.category-art{position:relative;background-position:center;background-size:cover;transition:transform .45s ease}
+.category-card:hover .category-art{transform:scale(1.035)}
+.category-art:after{position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,#2d111b4d);content:""}
+.category-art span{display:none}
+.category-photo .category-art{background-image:url('/images/home/photography.webp')}
+.category-venue .category-art{background-image:url('/images/home/venue.webp')}
+.category-makeup .category-art{background-image:url('/images/home/makeup.webp')}
+.category-catering .category-art{background-image:url('/images/home/catering.webp')}
+.category-decor .category-art{background-image:url('/images/home/decor.webp')}
+.category-music .category-art{background-image:url('/images/home/music.webp')}
+.category-card{box-shadow:0 8px 30px #4d27320b}
+.market-hero{background:linear-gradient(115deg,#fff9f7 0%,#fff 59%,#f7ece9 100%)}
+.why-section{background:linear-gradient(135deg,#fffaf8,#fdf5f2)}
+@media(max-width:640px){.hero-photo{height:390px;border-radius:42% 42% 20px 20px}.category-art{min-height:165px}}

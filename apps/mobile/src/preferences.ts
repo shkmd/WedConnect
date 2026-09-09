@@ -1,0 +1,1 @@
+import AsyncStorage from'@react-native-async-storage/async-storage';const CITY='wedconnect.city';export const saveCity=(city:string)=>AsyncStorage.setItem(CITY,city);export const loadCity=()=>AsyncStorage.getItem(CITY);

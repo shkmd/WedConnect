@@ -1,0 +1,1 @@
+import{describe,expect,it}from'vitest';import{signatureOk}from'../src/media-processor.js';describe('media signatures',()=>{it('accepts JPEG magic bytes',()=>expect(signatureOk(Buffer.from([255,216,255,0]),'image/jpeg')).toBe(true));it('rejects disguised files',()=>expect(signatureOk(Buffer.from('not an image'),'image/png')).toBe(false))});

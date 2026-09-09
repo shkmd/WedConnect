@@ -1,0 +1,1 @@
+import{SafeAreaView,Text,View}from'react-native';import{ui}from'../../src/ui';export default function Leads(){return <SafeAreaView style={ui.safe}><View style={ui.empty}><Text style={ui.title}>No new leads</Text><Text style={ui.body}>Privacy-safe requirement previews will appear here. Customer contact remains hidden until consent.</Text></View></SafeAreaView>}

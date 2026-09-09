@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS "trust_audit_logs","appeals","grievances","trust_reports","verification_badges","evidence_access_logs","verification_evidence","verification_cases" CASCADE;DROP TYPE IF EXISTS "AppealStatus","GrievanceType","TrustCaseStatus","TrustReportType","EvidenceStatus","VerificationCaseStatus","VerificationScope";

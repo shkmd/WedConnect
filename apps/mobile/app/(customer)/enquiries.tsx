@@ -1,0 +1,1 @@
+import{SafeAreaView,Text,View}from'react-native';import{ui}from'../../src/ui';export default function Enquiries(){return <SafeAreaView style={ui.safe}><View style={ui.empty}><Text style={ui.title}>Your enquiries</Text><Text style={ui.body}>Vendor responses, contact-sharing consent and discussion status will appear here.</Text></View></SafeAreaView>}

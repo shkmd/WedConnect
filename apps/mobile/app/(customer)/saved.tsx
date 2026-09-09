@@ -1,0 +1,1 @@
+import{SafeAreaView,Text,View}from'react-native';import{ui}from'../../src/ui';export default function Saved(){return <SafeAreaView style={ui.safe}><View style={ui.empty}><Text style={ui.title}>No saved vendors</Text><Text style={ui.body}>Saved vendors and shortlists remain available here when connectivity is limited.</Text></View></SafeAreaView>}

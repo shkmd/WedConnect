@@ -1,0 +1,1 @@
+import*as Location from'expo-location';export async function requestCityLocation(){const p=await Location.requestForegroundPermissionsAsync();if(!p.granted)return{granted:false as const};const x=await Location.getCurrentPositionAsync({accuracy:Location.Accuracy.Balanced});return{granted:true as const,latitude:x.coords.latitude,longitude:x.coords.longitude}}

@@ -1,0 +1,1 @@
+import{Module}from'@nestjs/common';import{AuthModule}from'../identity/auth.module';import{BillingPublicController,VendorBillingController}from'./billing.controller';import{BillingService}from'./billing.service';@Module({imports:[AuthModule],controllers:[BillingPublicController,VendorBillingController],providers:[BillingService]})export class BillingModule{}
