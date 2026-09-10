@@ -28,10 +28,15 @@ export class DashboardService {
     const membership = await this.db.vendorMember.findFirst({ where: { userId, active: true }, orderBy: { createdAt: 'asc' }, include: { business: { include: { creditAccount: true, _count: { select: { portfolioPosts: true, reviews: true, verificationBadges: true } } } } } });
     if (!membership) throw new NotFoundException('No vendor business is linked to this account');
     const business = membership.business;
+    const [totalLeads, newLeads, responses] = await Promise.all([
+      this.db.leadRecipient.count({ where: { businessId: business.id } }),
+      this.db.leadRecipient.count({ where: { businessId: business.id, status: 'NEW' } }),
+      this.db.leadRecipient.count({ where: { businessId: business.id, respondedAt: { not: null } } }),
+    ]);
     const leads = await this.db.leadRecipient.findMany({ where: { businessId: business.id }, orderBy: { createdAt: 'desc' }, take: 8, include: { requirement: { include: { city: { select: { name: true } }, category: { select: { name: true } } } } } });
     return {
       business: { id: business.id, name: business.name, slug: business.slug, status: business.status, completionPercent: business.completionPercent, publicVisible: business.publicVisible },
-      metrics: { newLeads: leads.filter((lead) => lead.status === 'NEW').length, totalLeads: leads.length, responses: leads.filter((lead) => lead.respondedAt).length, credits: business.creditAccount?.balance ?? 0, portfolioPosts: business._count.portfolioPosts, reviews: business._count.reviews, badges: business._count.verificationBadges },
+      metrics: { newLeads, totalLeads, responses, credits: business.creditAccount?.balance ?? 0, portfolioPosts: business._count.portfolioPosts, reviews: business._count.reviews, badges: business._count.verificationBadges },
       leads: leads.map((lead) => ({ id: lead.id, status: lead.status, eventType: lead.requirement.eventType, eventDate: lead.requirement.eventDate, city: lead.requirement.city.name, category: lead.requirement.category.name, budgetMin: lead.requirement.budgetMin?.toString() ?? null, budgetMax: lead.requirement.budgetMax?.toString() ?? null, createdAt: lead.createdAt })),
     };
   }

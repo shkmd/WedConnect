@@ -1,0 +1,127 @@
+.real-onboarding {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 24px 80px;
+  color: var(--text, #302326);
+}
+.real-onboarding > header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+.real-onboarding > header .market-logo {
+  margin-right: auto;
+}
+.real-onboarding h1 {
+  font-size: clamp(28px, 4vw, 42px);
+}
+.real-onboarding form {
+  background: #fff;
+  border: 1px solid #e5d9dd;
+  border-radius: 18px;
+  padding: 24px;
+  margin: 24px 0;
+}
+.real-onboarding fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+.real-onboarding legend {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.real-onboarding .field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.real-onboarding label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 18px;
+  font-size: 15px;
+}
+.real-onboarding input:not([type='checkbox']),
+.real-onboarding select,
+.real-onboarding textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #d9cbd0;
+  border-radius: 9px;
+  padding: 12px;
+  background: #fff;
+  color: inherit;
+  font: inherit;
+}
+.real-onboarding .check-label,
+.real-onboarding .choice-list label {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
+}
+.real-onboarding input[type='checkbox'] {
+  margin-top: 4px;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  accent-color: #702039;
+}
+.real-onboarding .choice-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+}
+.real-onboarding button {
+  background: var(--brand, #702039);
+  color: white;
+  padding: 12px 20px;
+  border: 0;
+  border-radius: 9px;
+  font: inherit;
+  cursor: pointer;
+}
+.real-onboarding button:disabled,
+.real-onboarding fieldset:disabled {
+  opacity: 0.65;
+}
+.real-onboarding :focus-visible {
+  outline: 3px solid #ad6a81;
+  outline-offset: 3px;
+}
+.real-onboarding .form-error,
+.real-onboarding .form-success {
+  padding: 18px;
+  border-radius: 10px;
+  border: 1px solid #d9cbd0;
+  overflow-wrap: anywhere;
+}
+.real-onboarding .form-error {
+  background: #fff3ed;
+  color: #822a22;
+}
+.real-onboarding .form-success {
+  background: #edf7ef;
+  color: #215630;
+}
+@media (max-width: 650px) {
+  .real-onboarding {
+    padding: 20px 16px 70px;
+  }
+  .real-onboarding .field-grid {
+    grid-template-columns: 1fr;
+  }
+  .real-onboarding form {
+    padding: 18px;
+  }
+  .real-onboarding > header {
+    gap: 14px;
+    font-size: 14px;
+  }
+}

@@ -1,12 +1,4 @@
-const steps = ['Account','Professional type','Business information','Primary category','Secondary categories','Primary city','Service areas','Services','Packages','Portfolio','Verification','Terms','Preview','Submit'];
-export default function VendorOnboardingPreview() {
-  return <main className="onboarding-shell"><header className="topbar"><a className="brand" href="/vendor/dashboard">WedConnect</a><div className="onboarding-header-actions"><a href="/vendor/dashboard">Exit to dashboard</a><span className="preview-badge">Draft autosaved</span></div></header><div className="onboarding-layout">
-    <aside className="step-panel"><p className="eyebrow">Vendor onboarding</p><h1>Build your wedding business profile</h1><div className="progress-copy"><strong>42% complete</strong><span>Draft saved</span></div><div className="progress"><span /></div><ol>{steps.map((step,i)=><li className={i===5?'current':i<5?'done':''} key={step}><span>{i<5?'✓':i+1}</span>{step}</li>)}</ol></aside>
-    <section className="form-panel" aria-labelledby="service-area-title"><div className="form-heading"><div><p className="eyebrow">Step 6 of 14</p><h2 id="service-area-title">Where do you work?</h2><p>Choose your base city and the neighbourhoods you serve. You can update these later.</p></div><span className="status-pill">Draft</span></div>
-      <div className="field-grid"><label>Primary city<select defaultValue="coimbatore"><option value="coimbatore">Coimbatore</option></select></label><label>Outstation availability<select defaultValue="yes"><option value="yes">Available for outstation events</option><option value="no">Not available</option></select></label></div>
-      <fieldset><legend>Service areas</legend><p className="helper">Representative Coimbatore localities from the live catalogue</p><div className="chip-grid">{['R. S. Puram','Saibaba Colony','Gandhipuram','Peelamedu','Saravanampatti','Vadavalli','Singanallur','Race Course'].map((area,i)=><label className="area-chip" key={area}><input type="checkbox" defaultChecked={i<4}/><span>{area}</span></label>)}</div></fieldset>
-      <div className="summary-card"><div><span className="summary-icon">◎</span><div><strong>Your profile coverage</strong><p>Coimbatore · 4 selected localities · Outstation available</p></div></div><button type="button">Edit map</button></div>
-      <div className="preview-grid"><article><span>Next</span><h3>Add services</h3><p>Describe your offerings and starting prices.</p></article><article><span>Later</span><h3>Preview & submit</h3><p>Review the complete profile before moderation.</p></article></div>
-      <footer className="form-actions"><button className="secondary" type="button">Back</button><div><button className="secondary" type="button">Save draft</button><button className="primary" type="button">Save & continue</button></div></footer>
-    </section></div></main>;
+import VendorForm from './vendor-form';
+export default function VendorOnboarding() {
+  return <VendorForm />;
 }
