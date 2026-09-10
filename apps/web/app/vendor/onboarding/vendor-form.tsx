@@ -213,6 +213,7 @@ export default function VendorForm() {
           {message}
         </p>
       )}
+      {ready && <section className="profile-completion" aria-label="Profile completion"><div><strong>PROFILE {business?.completionPercent ?? 0}% COMPLETE</strong><span>{business?.completionPercent ?? 0}%</span></div><progress max="100" value={business?.completionPercent ?? 0} /><p>Complete your category, base city, about section, services and portfolio to get discovered by more couples.</p></section>}
       {login && <a href="/sign-in?role=VENDOR_OWNER">Sign in as a vendor</a>}
       {!ready ? (
         <section className="onboarding-loading" role="status" aria-live="polite" aria-busy={!message}>
@@ -365,7 +366,7 @@ export default function VendorForm() {
           </form>
           <form id="business-services" onSubmit={(e) => void act('service', e)}>
             <fieldset disabled={busy || !editable || !business}>
-              <legend>Services</legend>
+                <legend>Services offered</legend>
               <ul>
                 {business?.services.map((s) => (
                   <li key={s.id}>
@@ -415,7 +416,7 @@ export default function VendorForm() {
           </form>
           <form id="business-packages" onSubmit={(e) => void act('package', e)}>
             <fieldset disabled={busy || !editable || !business}>
-              <legend>Packages (optional)</legend>
+                <legend>Pricing &amp; packages</legend>
               <ul>
                 {business?.packages.map((p) => (
                   <li key={p.id}>
@@ -451,7 +452,7 @@ export default function VendorForm() {
           </form>
           <form id="business-review" onSubmit={(e) => void act('submit', e)}>
             <fieldset disabled={busy || !editable || !business}>
-              <legend>Review and submit</legend>
+                <legend>Publish profile updates</legend>
               <p>
                 A description, base city, primary category, service area and at least one service
                 are required.
