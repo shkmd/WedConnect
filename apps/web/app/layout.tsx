@@ -9,6 +9,7 @@ import './discovery-v2.css';
 import './typography.css';
 import './theme.css';
 import './onboarding.css';
+import './vendor-workspace.css';
 import ThemeSwitcher from './theme-switcher';
 
 export const metadata: Metadata = {

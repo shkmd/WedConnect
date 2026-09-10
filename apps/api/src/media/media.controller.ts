@@ -7,6 +7,7 @@ export class VendorMediaController { constructor(@Inject(MediaService)private re
  @Post('retry/:mediaId')retry(@Req()r:AuthenticatedRequest,@Param('businessId')b:string,@Param('mediaId')m:string){return this.media.retry(r.auth.userId,b,m)} }
 @Controller('vendors/businesses/:businessId/portfolio') @UseGuards(AuthGuard)
 export class VendorPortfolioController {constructor(@Inject(MediaService)private readonly media:MediaService){}
+ @Get()list(@Req()r:AuthenticatedRequest,@Param('businessId')b:string){return this.media.listMine(r.auth.userId,b)}
  @Post()create(@Req()r:AuthenticatedRequest,@Param('businessId')b:string,@Body()x:unknown){return this.media.createPost(r.auth.userId,b,x)}
  @Post(':postId/publish')publish(@Req()r:AuthenticatedRequest,@Param('businessId')b:string,@Param('postId')p:string){return this.media.publish(r.auth.userId,b,p)}
  @Patch(':postId/archive')archive(@Req()r:AuthenticatedRequest,@Param('businessId')b:string,@Param('postId')p:string){return this.media.archive(r.auth.userId,b,p)} }

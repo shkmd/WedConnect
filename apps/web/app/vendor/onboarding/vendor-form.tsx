@@ -189,7 +189,7 @@ export default function VendorForm() {
     }
   }
   return (
-    <main className="real-onboarding vendor-onboarding">
+    <div className="real-onboarding vendor-onboarding">
       <header>
         <a className="market-logo" href="/">
           <span>Wed</span>Connect
@@ -470,6 +470,6 @@ export default function VendorForm() {
           </form>
         </>
       )}
-    </main>
+    </div>
   );
 }
