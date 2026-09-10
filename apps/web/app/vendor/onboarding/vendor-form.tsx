@@ -34,11 +34,11 @@ export default function VendorForm() {
     [categoryId, setCategory] = useState('');
   const [stateId, setState] = useState('');
   const [citySearch, setCitySearch] = useState('');
+  const [areas, setAreas] = useState<string[]>([]),
+    [outstation, setOutstation] = useState(false);
   const availableCities = states.find((entry) => entry.state.id === stateId)?.cities ?? [];
   const selectedCities = states.flatMap((entry) => entry.cities).filter((city) => areas.includes(city.id));
   const filteredCities = availableCities.filter((city) => `${city.name} ${city.district ?? ''}`.toLowerCase().includes(citySearch.trim().toLowerCase()));
-  const [areas, setAreas] = useState<string[]>([]),
-    [outstation, setOutstation] = useState(false);
   const [serviceName, setServiceName] = useState(''),
     [price, setPrice] = useState(''),
     [pricing, setPricing] = useState('STARTING_FROM');
