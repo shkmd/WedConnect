@@ -3,6 +3,8 @@
   margin: 0 auto;
   padding: 28px 24px 80px;
   color: var(--text, #302326);
+  min-height: 100vh;
+  display: block;
 }
 .real-onboarding > header {
   display: flex;
@@ -10,13 +12,25 @@
   gap: 20px;
   flex-wrap: wrap;
   margin-bottom: 40px;
+  min-height: 52px;
 }
 .real-onboarding > header .market-logo {
   margin-right: auto;
 }
 .real-onboarding h1 {
   font-size: clamp(28px, 4vw, 42px);
+  margin: 0 0 10px;
 }
+.real-onboarding > p { max-width: 680px; line-height: 1.6; }
+.onboarding-loading { display: grid; place-items: center; min-height: 360px; margin-top: 32px; padding: 40px 24px; background: #fff; border: 1px solid #e5d9dd; border-radius: 18px; text-align: center; }
+.onboarding-loading-inner { max-width: 460px; }
+.onboarding-loading-mark { width: 52px; height: 52px; margin: 0 auto 20px; display: grid; place-items: center; border-radius: 16px; background: #f7e9ee; color: #702039; font-size: 24px; }
+.onboarding-loading h2 { margin: 0 0 10px; font-size: 24px; }
+.onboarding-loading p { margin: 0; color: #75666c; line-height: 1.6; }
+.onboarding-loading-bar { height: 6px; margin: 24px auto 0; max-width: 220px; overflow: hidden; border-radius: 99px; background: #f0e3e7; }
+.onboarding-loading-bar::after { content: ''; display: block; width: 45%; height: 100%; border-radius: inherit; background: #702039; animation: onboarding-progress 1.4s ease-in-out infinite; }
+@keyframes onboarding-progress { 0% { transform: translateX(-110%); } 100% { transform: translateX(250%); } }
+@media (prefers-reduced-motion: reduce) { .onboarding-loading-bar::after { animation: none; width: 100%; } }
 .real-onboarding form {
   background: #fff;
   border: 1px solid #e5d9dd;

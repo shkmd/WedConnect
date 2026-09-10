@@ -200,7 +200,14 @@ export default function VendorForm() {
       )}
       {login && <a href="/sign-in?role=VENDOR_OWNER">Sign in as a vendor</a>}
       {!ready ? (
-        <p>{message ? 'Reload this page to try again.' : 'Loading your saved profile…'}</p>
+        <section className="onboarding-loading" role="status" aria-live="polite" aria-busy="true">
+          <div className="onboarding-loading-inner">
+            <div className="onboarding-loading-mark" aria-hidden="true">◇</div>
+            <h2>{message ? 'We could not load your profile' : 'Preparing your workspace'}</h2>
+            <p>{message ? 'Reload this page to try again.' : 'Checking your account and loading your saved business details…'}</p>
+            {!message && <div className="onboarding-loading-bar" aria-hidden="true" />}
+          </div>
+        </section>
       ) : (
         <>
           <p>
