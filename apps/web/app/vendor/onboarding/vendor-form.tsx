@@ -33,6 +33,10 @@ export default function VendorForm() {
     [cityId, setCity] = useState(''),
     [categoryId, setCategory] = useState('');
   const [stateId, setState] = useState('');
+  const [citySearch, setCitySearch] = useState('');
+  const availableCities = states.find((entry) => entry.state.id === stateId)?.cities ?? [];
+  const selectedCities = states.flatMap((entry) => entry.cities).filter((city) => areas.includes(city.id));
+  const filteredCities = availableCities.filter((city) => `${city.name} ${city.district ?? ''}`.toLowerCase().includes(citySearch.trim().toLowerCase()));
   const [areas, setAreas] = useState<string[]>([]),
     [outstation, setOutstation] = useState(false);
   const [serviceName, setServiceName] = useState(''),
@@ -79,6 +83,7 @@ export default function VendorForm() {
           existing = await request<Business>(`/vendors/businesses/${businessId}/onboarding`);
         if (active) {
           setStates(options.states);
+          if (existing?.baseCityId) setState(options.states.find((entry) => entry.cities.some((city) => city.id === existing.baseCityId))?.state.id ?? '');
           setCategories(options.categories);
           if (existing) hydrate(existing);
           setReady(true);
@@ -184,16 +189,25 @@ export default function VendorForm() {
     }
   }
   return (
-    <main className="real-onboarding">
+    <main className="real-onboarding vendor-onboarding">
       <header>
         <a className="market-logo" href="/">
           <span>Wed</span>Connect
         </a>
         <AccountNav />
-        <a href="/vendor/dashboard">Vendor dashboard</a>
+        <a className="onboarding-back" href="/vendor/dashboard">← Dashboard</a>
       </header>
-      <h1>Your business profile</h1>
-      <p>Save your details, add a service, and submit for review.</p>
+      <div className="onboarding-intro">
+        <p className="onboarding-eyebrow">YOUR NEXT CHAPTER STARTS HERE</p>
+        <h1>Bring your business to WedConnect.</h1>
+        <p>Tell couples what makes your work special. Build your profile, add your services and get ready to be discovered.</p>
+      </div>
+      {ready && <nav className="onboarding-sections" aria-label="Onboarding sections">
+        <a href="#business-details"><span>01</span> Business details</a>
+        <a href="#business-services"><span>02</span> Services</a>
+        <a href="#business-packages"><span>03</span> Packages</a>
+        <a href="#business-review"><span>04</span> Review</a>
+      </nav>}
       {message && (
         <p className={failed ? 'form-error' : 'form-success'} role={failed ? 'alert' : 'status'}>
           {message}
@@ -201,7 +215,7 @@ export default function VendorForm() {
       )}
       {login && <a href="/sign-in?role=VENDOR_OWNER">Sign in as a vendor</a>}
       {!ready ? (
-        <section className="onboarding-loading" role="status" aria-live="polite" aria-busy="true">
+        <section className="onboarding-loading" role="status" aria-live="polite" aria-busy={!message}>
           <div className="onboarding-loading-inner">
             <div className="onboarding-loading-mark" aria-hidden="true">◇</div>
             <h2>{message ? 'We could not load your profile' : 'Preparing your workspace'}</h2>
@@ -222,7 +236,7 @@ export default function VendorForm() {
               currently unavailable.
             </p>
           )}
-          <form onSubmit={(e) => void act('save', e)}>
+          <form id="business-details" onSubmit={(e) => void act('save', e)}>
             <fieldset disabled={busy || !editable}>
               <legend>Business details</legend>
               <div className="field-grid">
@@ -275,18 +289,18 @@ export default function VendorForm() {
                 </label>
                 <label>
                   State
-                  <select value={stateId} onChange={(e) => { setState(e.target.value); setCity(''); setAreas([]); }}>
+                  <select value={stateId} onChange={(e) => { setState(e.target.value); setCity(''); setCitySearch(''); }}>
                     <option value="">Choose state</option>
                     {states.map((entry) => <option key={entry.state.id} value={entry.state.id}>{entry.state.name}</option>)}
                   </select>
                 </label>
                 <label>
                   Base city
-                  <select value={cityId} onChange={(e) => setCity(e.target.value)}>
-                    <option value="">Choose city</option>
+                  <select disabled={!stateId} value={cityId} onChange={(e) => setCity(e.target.value)}>
+                    <option value="">{stateId ? 'Choose city' : 'Select a state first'}</option>
                     {(states.find((entry) => entry.state.id === stateId)?.cities ?? []).map((c) => (
                       <option key={c.id} value={c.id}>
-                        {c.name}
+                        {c.name}{c.district ? ` · ${c.district}` : ''}
                       </option>
                     ))}
                   </select>
@@ -320,27 +334,36 @@ export default function VendorForm() {
                 />
                 Available for outstation events
               </label>
-              <p>Service cities{stateId ? ` in ${states.find((entry) => entry.state.id === stateId)?.state.name}` : ''}</p>
-              <div className="choice-list">
-                {(states.find((entry) => entry.state.id === stateId)?.cities ?? []).map((c) => (
+              <section className="service-city-picker" aria-label="Service cities">
+              <div className="city-picker-heading"><div><h2>Where do you work?</h2><p>Select the cities you serve. Search by city or district.</p></div><span className="city-count" aria-live="polite">{areas.length} / 100 selected</span></div>
+              <label className="city-search">Search service cities
+                <input type="search" value={citySearch} disabled={!stateId} onChange={(e) => setCitySearch(e.target.value)} placeholder="Try Chennai, Pollachi or a district…" />
+              </label>
+              {selectedCities.length > 0 && <div className="selected-city-chips" aria-label="Selected cities">{selectedCities.map((city) => <button type="button" key={city.id} onClick={() => setAreas(areas.filter((id) => id !== city.id))} aria-label={`Remove ${city.name}${city.district ? `, ${city.district}` : ''}`}>{city.name}{city.district ? ` · ${city.district}` : ''} <span aria-hidden="true">×</span></button>)}</div>}
+              <div className="choice-list city-results">
+                {filteredCities.map((c) => (
                   <label key={c.id}>
                     <input
                       type="checkbox"
                       checked={areas.includes(c.id)}
+                      disabled={!areas.includes(c.id) && areas.length >= 100}
                       onChange={(e) =>
                         setAreas(
                           e.target.checked ? [...areas, c.id] : areas.filter((id) => id !== c.id),
                         )
                       }
                     />
-                    {c.name}
+                    <span>{c.name}{c.district && <small>{c.district}</small>}</span>
                   </label>
                 ))}
               </div>
+              {!filteredCities.length && <p className="city-empty">{!stateId ? 'Choose a state above to explore its cities.' : 'No cities match your search. Try another name.'}</p>}
+              <p className="city-picker-hint">You can switch states to add more cities. Your selections stay saved in this form until you press Save business details.</p>
+              </section>
               <button>Save business details</button>
             </fieldset>
           </form>
-          <form onSubmit={(e) => void act('service', e)}>
+          <form id="business-services" onSubmit={(e) => void act('service', e)}>
             <fieldset disabled={busy || !editable || !business}>
               <legend>Services</legend>
               <ul>
@@ -390,7 +413,7 @@ export default function VendorForm() {
               <button>Add service</button>
             </fieldset>
           </form>
-          <form onSubmit={(e) => void act('package', e)}>
+          <form id="business-packages" onSubmit={(e) => void act('package', e)}>
             <fieldset disabled={busy || !editable || !business}>
               <legend>Packages (optional)</legend>
               <ul>
@@ -426,7 +449,7 @@ export default function VendorForm() {
               <button>Add package</button>
             </fieldset>
           </form>
-          <form onSubmit={(e) => void act('submit', e)}>
+          <form id="business-review" onSubmit={(e) => void act('submit', e)}>
             <fieldset disabled={busy || !editable || !business}>
               <legend>Review and submit</legend>
               <p>

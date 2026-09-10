@@ -1,3 +1,33 @@
+.vendor-onboarding.real-onboarding { max-width: 1180px; }
+.vendor-onboarding > header { border-bottom: 1px solid #e7dcdf; padding-bottom: 22px; }
+.vendor-onboarding .onboarding-back { color: #702039; text-decoration: none; font-weight: 600; font-size: 14px; }
+.vendor-onboarding .onboarding-intro { max-width: 760px; padding: 12px 0 24px; }
+.vendor-onboarding .onboarding-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .16em; color: #702039; margin: 0 0 16px; }
+.vendor-onboarding .onboarding-intro h1 { max-width: 720px; font-size: clamp(30px,4vw,46px); line-height: 1.16; letter-spacing: -.025em; }
+.vendor-onboarding .onboarding-intro > p:last-child { max-width: 610px; font-size: 16px; line-height: 1.7; color: #75666c; }
+.onboarding-sections { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin: 8px 0 24px; }
+.onboarding-sections a { display: flex; align-items: center; gap: 10px; padding: 15px; border: 1px solid #e7dcdf; border-radius: 12px; background: #fff; text-decoration: none; color: #49343c; font-size: 14px; font-weight: 600; }
+.onboarding-sections a:hover { border-color: #702039; background: #faf1f4; }
+.onboarding-sections span { color: #702039; font-size: 12px; }
+.vendor-onboarding form { scroll-margin-top: 24px; padding: 32px; box-shadow: 0 6px 24px #43242c04; }
+.vendor-onboarding legend { padding-bottom: 16px; width: 100%; border-bottom: 1px solid #eee5e8; }
+.vendor-onboarding .service-city-picker { border: 1px solid #e7dcdf; background: #fcfafb; border-radius: 14px; padding: 20px; margin: 24px 0; }
+.city-picker-heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.vendor-onboarding .city-picker-heading h2 { font: inherit; font-weight: 650; font-size: 18px; margin: 0 0 5px; }
+.city-picker-heading p, .city-picker-hint { font-size: 13px; color: #75666c; line-height: 1.6; margin: 0 0 16px; }
+.city-count { white-space: nowrap; border-radius: 20px; background: #f2e3e9; color: #702039; font-size: 12px; padding: 6px 10px; }
+.vendor-onboarding .city-search { font-size: 13px; }
+.vendor-onboarding .city-results { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); max-height: 280px; overflow-y: auto; overscroll-behavior: contain; gap: 8px; padding: 4px; }
+.vendor-onboarding .city-results label { min-width: 0; padding: 10px; margin: 0; border: 1px solid #e8e0e3; background: #fff; border-radius: 8px; cursor: pointer; font-size: 13px; }
+.vendor-onboarding .city-results label:has(input:checked) { background: #f8edf1; border-color: #b57b90; }
+.city-results small { display: block; color: #75666c; font-size: 11px; font-weight: 400; margin-top: 3px; }
+.city-results label span { overflow-wrap: anywhere; }
+.selected-city-chips { display: flex; flex-wrap: wrap; max-height: 140px; overflow-y: auto; gap: 6px; margin-bottom: 14px; }
+.vendor-onboarding .selected-city-chips button { padding: 6px 9px; border-radius: 16px; background: #f2e3e9; color: #702039; font-size: 12px; }
+.city-picker-hint { margin: 14px 0 0; }
+.city-empty { color: #75666c; padding: 16px; text-align: center; }
+@media(max-width: 700px) { .onboarding-sections { grid-template-columns: repeat(2,1fr); } .vendor-onboarding .city-results { grid-template-columns: repeat(2,minmax(0,1fr)); } .vendor-onboarding form { padding: 20px; } .city-picker-heading { flex-wrap: wrap; } }
+@media(max-width: 420px) { .vendor-onboarding .city-results { grid-template-columns: 1fr; } .vendor-onboarding .service-city-picker { padding: 12px; } }
 .real-onboarding {
   max-width: 1100px;
   margin: 0 auto;

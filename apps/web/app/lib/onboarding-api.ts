@@ -1,4 +1,4 @@
-export type Choice = { id: string; name: string; slug: string; type?: string };
+export type Choice = { id: string; name: string; slug: string; type?: string; district?: string };
 export class ApiError extends Error {
   constructor(
     message: string,
@@ -25,12 +25,12 @@ export async function request<T>(path: string, method = 'GET', body?: unknown): 
   return data as T;
 }
 export async function catalog() {
-  async function citiesUnder(parent: Choice): Promise<Choice[]> {
-    if (parent.type === 'CITY') return [parent];
+  async function citiesUnder(parent: Choice, district?: string): Promise<Choice[]> {
+    if (parent.type === 'CITY') return [{ ...parent, ...(district ? { district } : {}) }];
     if (parent.type === 'LOCALITY') return [];
     return (
       await Promise.all(
-        (await request<Choice[]>(`/locations/${parent.id}/children`)).map(citiesUnder),
+        (await request<Choice[]>(`/locations/${parent.id}/children`)).map((child) => citiesUnder(child, parent.type === 'DISTRICT' ? parent.name : district)),
       )
     ).flat();
   }
