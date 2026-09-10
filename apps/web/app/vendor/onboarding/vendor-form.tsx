@@ -24,8 +24,7 @@ const version = 'vendor-onboarding-v1';
 export default function VendorForm() {
   const idRef = useRef('');
   const [business, setBusiness] = useState<Business | null>(null);
-  const [cities, setCities] = useState<Choice[]>([]),
-    [states, setStates] = useState<{ state: Choice; cities: Choice[] }[]>([]),
+  const [states, setStates] = useState<{ state: Choice; cities: Choice[] }[]>([]),
     [categories, setCategories] = useState<Choice[]>([]);
   const [name, setName] = useState(''),
     [slug, setSlug] = useState(''),
@@ -79,7 +78,6 @@ export default function VendorForm() {
         if (businessId)
           existing = await request<Business>(`/vendors/businesses/${businessId}/onboarding`);
         if (active) {
-          setCities(options.cities);
           setStates(options.states);
           setCategories(options.categories);
           if (existing) hydrate(existing);
