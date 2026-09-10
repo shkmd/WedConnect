@@ -25,6 +25,7 @@ export default function VendorForm() {
   const idRef = useRef('');
   const [business, setBusiness] = useState<Business | null>(null);
   const [cities, setCities] = useState<Choice[]>([]),
+    [states, setStates] = useState<{ state: Choice; cities: Choice[] }[]>([]),
     [categories, setCategories] = useState<Choice[]>([]);
   const [name, setName] = useState(''),
     [slug, setSlug] = useState(''),
@@ -32,6 +33,7 @@ export default function VendorForm() {
   const [description, setDescription] = useState(''),
     [cityId, setCity] = useState(''),
     [categoryId, setCategory] = useState('');
+  const [stateId, setState] = useState('');
   const [areas, setAreas] = useState<string[]>([]),
     [outstation, setOutstation] = useState(false);
   const [serviceName, setServiceName] = useState(''),
@@ -78,6 +80,7 @@ export default function VendorForm() {
           existing = await request<Business>(`/vendors/businesses/${businessId}/onboarding`);
         if (active) {
           setCities(options.cities);
+          setStates(options.states);
           setCategories(options.categories);
           if (existing) hydrate(existing);
           setReady(true);
@@ -273,10 +276,17 @@ export default function VendorForm() {
                   </select>
                 </label>
                 <label>
+                  State
+                  <select value={stateId} onChange={(e) => { setState(e.target.value); setCity(''); setAreas([]); }}>
+                    <option value="">Choose state</option>
+                    {states.map((entry) => <option key={entry.state.id} value={entry.state.id}>{entry.state.name}</option>)}
+                  </select>
+                </label>
+                <label>
                   Base city
                   <select value={cityId} onChange={(e) => setCity(e.target.value)}>
                     <option value="">Choose city</option>
-                    {cities.map((c) => (
+                    {(states.find((entry) => entry.state.id === stateId)?.cities ?? []).map((c) => (
                       <option key={c.id} value={c.id}>
                         {c.name}
                       </option>
@@ -312,9 +322,9 @@ export default function VendorForm() {
                 />
                 Available for outstation events
               </label>
-              <p>Service cities</p>
+              <p>Service cities{stateId ? ` in ${states.find((entry) => entry.state.id === stateId)?.state.name}` : ''}</p>
               <div className="choice-list">
-                {cities.map((c) => (
+                {(states.find((entry) => entry.state.id === stateId)?.cities ?? []).map((c) => (
                   <label key={c.id}>
                     <input
                       type="checkbox"

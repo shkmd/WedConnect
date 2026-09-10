@@ -38,7 +38,16 @@ export async function catalog() {
     request<Choice[]>('/categories'),
     request<Choice[]>('/locations/countries'),
   ]);
-  return { categories, cities: (await Promise.all(countries.map(citiesUnder))).flat() };
+  const states = (await Promise.all(
+    countries.map(async (country) => {
+      const children = await request<Choice[]>(`/locations/${country.id}/children`);
+      return children.filter((child) => child.type !== 'CITY' && child.type !== 'LOCALITY');
+    }),
+  )).flat();
+  const stateCities = await Promise.all(
+    states.map(async (state) => ({ state, cities: (await citiesUnder(state)).sort((a, b) => a.name.localeCompare(b.name)) })),
+  );
+  return { categories, cities: stateCities.flatMap((entry) => entry.cities), states: stateCities };
 }
 export async function ensureSession() {
   try {
